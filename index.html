@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktive Schwarzes-Loch-Simulation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Schwarzes-Loch-Simulation</h1>
+            <p>Eine interaktive 3D-Visualisierung mit WebGL</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="canvas-container">
+                <canvas id="blackhole-canvas"></canvas>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Initialisierung der Simulation...</p>
+                </div>
+            </div>
+            
+            <div class="controls-panel">
+                <h2>Simulationsparameter</h2>
+                
+                <div class="control-group">
+                    <label for="mass-slider">
+                        <span class="control-label">Masse des Schwarzen Lochs</span>
+                        <span class="control-value" id="mass-value">10 M☉</span>
+                    </label>
+                    <input type="range" id="mass-slider" min="1" max="100" value="10" step="1">
+                    <div class="control-description">Beeinflusst den Schwarzschild-Radius</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="spin-slider">
+                        <span class="control-label">Spin/Rotation</span>
+                        <span class="control-value" id="spin-value">0.5</span>
+                    </label>
+                    <input type="range" id="spin-slider" min="0" max="1" value="0.5" step="0.01">
+                    <div class="control-description">Rotationsgeschwindigkeit (0-1)</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="accretion-brightness-slider">
+                        <span class="control-label">Akkretionsscheiben-Helligkeit</span>
+                        <span class="control-value" id="accretion-brightness-value">0.8</span>
+                    </label>
+                    <input type="range" id="accretion-brightness-slider" min="0" max="1" value="0.8" step="0.01">
+                    <div class="control-description">Leuchtkraft der Akkretionsscheibe</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="accretion-color-slider">
+                        <span class="control-label">Akkretionsscheiben-Farbe</span>
+                        <span class="control-value" id="accretion-color-value">0.5</span>
+                    </label>
+                    <input type="range" id="accretion-color-slider" min="0" max="1" value="0.5" step="0.01">
+                    <div class="control-description">Temperatur: Blau (kalt) → Rot (heiß)</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="accretion-thickness-slider">
+                        <span class="control-label">Akkretionsscheiben-Dicke</span>
+                        <span class="control-value" id="accretion-thickness-value">0.3</span>
+                    </label>
+                    <input type="range" id="accretion-thickness-slider" min="0.1" max="1" value="0.3" step="0.01">
+                    <div class="control-description">Vertikale Ausdehnung</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="lensing-strength-slider">
+                        <span class="control-label">Gravitationslinsen-Stärke</span>
+                        <span class="control-value" id="lensing-strength-value">1.0</span>
+                    </label>
+                    <input type="range" id="lensing-strength-slider" min="0" max="2" value="1.0" step="0.1">
+                    <div class="control-description">Intensität der Raumzeitkrümmung</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="camera-distance-slider">
+                        <span class="control-label">Kamera-Abstand</span>
+                        <span class="control-value" id="camera-distance-value">20</span>
+                    </label>
+                    <input type="range" id="camera-distance-slider" min="10" max="50" value="20" step="1">
+                    <div class="control-description">Zoom-Level der Ansicht</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="camera-angle-slider">
+                        <span class="control-label">Kamera-Winkel</span>
+                        <span class="control-value" id="camera-angle-value">30°</span>
+                    </label>
+                    <input type="range" id="camera-angle-slider" min="0" max="90" value="30" step="5">
+                    <div class="control-description">Betrachtungswinkel zur Akkretionsscheibe</div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="auto-rotate-checkbox" checked>
+                        <span>Automatische Rotation</span>
+                    </label>
+                </div>
+                
+                <div class="control-group">
+                    <button id="reset-button" class="reset-button">Parameter Zurücksetzen</button>
+                </div>
+                
+                <div class="info-panel">
+                    <h3>Physikalische Daten</h3>
+                    <div class="info-item">
+                        <span class="info-label">Schwarzschild-Radius:</span>
+                        <span class="info-value" id="schwarzschild-radius">29.5 km</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ereignishorizont:</span>
+                        <span class="info-value" id="event-horizon">59.0 km</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">FPS:</span>
+                        <span class="info-value" id="fps-counter">60</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/shaders.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/blackhole.js"></script>
+</body>
+</html>
