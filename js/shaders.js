@@ -3,6 +3,7 @@
 const Shaders = {
     // Vertex Shader for the space-time grid
     gridVertexShader: `
+        precision mediump float;
         attribute vec3 position;
         attribute vec3 normal;
         uniform mat4 modelViewMatrix;
@@ -45,12 +46,11 @@ const Shaders = {
         varying vec3 vPosition;
         varying vec3 vNormal;
         varying float vDistortion;
-        uniform float time;
         
         void main() {
-            // Grid pattern
+            // Grid pattern (using fixed width instead of fwidth)
             vec2 gridPos = vPosition.xz;
-            vec2 grid = abs(fract(gridPos - 0.5) - 0.5) / fwidth(gridPos);
+            vec2 grid = abs(fract(gridPos - 0.5) - 0.5) / 0.05;
             float line = min(grid.x, grid.y);
             
             // Color based on distortion
@@ -67,6 +67,7 @@ const Shaders = {
     
     // Vertex Shader for accretion disk
     accretionVertexShader: `
+        precision mediump float;
         attribute vec3 position;
         attribute vec2 uv;
         uniform mat4 modelViewMatrix;
@@ -143,6 +144,7 @@ const Shaders = {
     
     // Vertex Shader for black hole (event horizon)
     blackholeVertexShader: `
+        precision mediump float;
         attribute vec3 position;
         attribute vec3 normal;
         uniform mat4 modelViewMatrix;
@@ -187,6 +189,7 @@ const Shaders = {
     
     // Vertex Shader for stars
     starVertexShader: `
+        precision mediump float;
         attribute vec3 position;
         attribute float size;
         uniform mat4 modelViewMatrix;
